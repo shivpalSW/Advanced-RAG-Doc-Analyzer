@@ -17,3 +17,6 @@ setup(
     url="https://github.com/shivpalSW/Advanced-RAG-Doc-System",  
     packages=find_packages(),
     include_package_data=True, )
+# This setup.py file is used to package the ragdoc-portal application.
+# It includes metadata such as name, version, author, and long description.
+# The long description is read from a README file.

@@ -146,6 +146,8 @@ venv.bak/
 
 ragdocport/
 
+ragdoc_portal.egg-info/
+
 # Spyder project settings
 .spyderproject
 .spyproject
@@ -203,3 +205,5 @@ __marimo__/
 
 # Streamlit
 .streamlit/secrets.toml
+
+ragdoc_portal.egg-info

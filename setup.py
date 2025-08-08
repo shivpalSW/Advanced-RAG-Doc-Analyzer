@@ -14,6 +14,6 @@ setup(
     author_email="shivpalwaiml@gmail.com",    
     long_description=README,  # Read the long description from README file
     long_description_content_type="text/markdown",
-    url="https://github.com/shivpalSW/Advanced-RAG-Doc-System",  # Update with your repo URL
+    url="https://github.com/shivpalSW/Advanced-RAG-Doc-System",  
     packages=find_packages(),
     include_package_data=True, )

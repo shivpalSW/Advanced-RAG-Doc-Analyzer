@@ -6,6 +6,7 @@ langchain_google_genai
 langchain_community
 pypdf
 faiss-cpu
-
+structlog==25.4.0
+PyMuPDF==1.26.3
 
 -e . 

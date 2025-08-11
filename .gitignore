@@ -207,3 +207,10 @@ __marimo__/
 .streamlit/secrets.toml
 
 ragdoc_portal.egg-info
+
+env
+.env
+venv/
+__pycache__/
+logs/
+*.pyc

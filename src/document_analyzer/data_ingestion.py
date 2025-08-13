@@ -58,17 +58,23 @@ class DocumentHandler():
 
      
 
-     def read_pdf(self):
+     def read_pdf(self,pdf_path:str)->str:
          """
          Reads the PDF document and extracts text from each page.
          :return: A list of strings, each representing the text of a page.
          """
          try:
-             pass
-         
+             text_chunks = []
+             with fitz.open(pdf_path) as doc:
+                 for page_num, page in enumerate(doc, start=1):
+                     text_chunks.append(f"\n--- Page {page_num} ---\n{page.get_text()}")
+             text = "\n".join(text_chunks)
+
+             self.log.info("PDF read successfully", pdf_path=pdf_path, session_id=self.session_id, pages=len(text_chunks))
+             return text
          except Exception as e:
-             self.log.error(f"Error saving PDF: {e}")
-             raise DocumentPortalException("Error saving PDF", e) from e
+             self.log.error(f"Error reading PDF: {e}")
+             raise DocumentPortalException("Error reading PDF", e) from e
          
 if __name__ == "__main__":
     from pathlib import Path
@@ -89,11 +95,16 @@ if __name__ == "__main__":
     dummy_pdf = DummyFile(pdf_path)
     
     # Assuming DocumentHandler is defined somewhere else in your code
-    handler = DocumentHandler(session_id="test_session")
+    handler = DocumentHandler(session_id="test_session-2")
     
     try:
         saved_path = handler.save_pdf(dummy_pdf)
         print(saved_path)
+
+        content = handler.read_pdf(saved_path)
+        print("PDF content read successfully:")
+        print(content[:500])  # Print first 500 characters of the content
+
     except Exception as e:
         print(f"Error: {e}")
 

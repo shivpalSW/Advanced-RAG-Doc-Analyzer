@@ -90,12 +90,12 @@ if __name__ == "__main__":
             return open(self._file_path, "rb").read()
     
     # Example usage
-    pdf_path = r"C:\\Users\\HP\Desktop\\attention-is-all-you-need-Paper.pdf"
+    pdf_path = r"data\\document_analysis\\Corrective-RAG-paper.pdf"
     
     dummy_pdf = DummyFile(pdf_path)
     
     # Assuming DocumentHandler is defined somewhere else in your code
-    handler = DocumentHandler(session_id="test_session-2")
+    handler = DocumentHandler(session_id="test_session-3")
     
     try:
         saved_path = handler.save_pdf(dummy_pdf)

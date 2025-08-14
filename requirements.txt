@@ -8,5 +8,6 @@ pypdf
 faiss-cpu
 structlog==25.4.0
 PyMuPDF==1.26.3
+pandas
 
 -e . 

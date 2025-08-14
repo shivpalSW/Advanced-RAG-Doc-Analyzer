@@ -32,6 +32,6 @@ if __name__ == "__main__":# Main function to run the script
         a = 1 / 0
         print(a) 
     except Exception as e:
-        app_exc=DocumentPortalException(e,sys)
+        app_exc=DocumentPortalException(e,sys)# sys,Create an instance of the custom exception
         logger.error(app_exc)
         raise app_exc

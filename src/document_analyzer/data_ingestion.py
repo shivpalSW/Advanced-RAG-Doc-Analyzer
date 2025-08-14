@@ -1,6 +1,7 @@
 import os 
 import fitz # PyMuPDF
 import uuid
+import sys
 from datetime import datetime
 from logger .custom_logger import CustomLogger
 from exception.custom_exception import DocumentPortalException
@@ -28,7 +29,7 @@ class DocumentHandler():
 
         except Exception as e:
             self.log.error(f"Error initializing DocumentHandler: {e}")
-            raise DocumentPortalException("Error initializing DocumentHandler", e) from e
+            raise DocumentPortalException("Error initializing DocumentHandler",sys)
         
 
      def save_pdf(self,uploaded_file):
@@ -41,7 +42,7 @@ class DocumentHandler():
             filename = os.path.basename(uploaded_file.name)
             
             if not filename.lower().endswith(".pdf"):
-                raise DocumentPortalException("Invalid file type. Only PDFs are allowed.", "File extension is not .pdf")
+                raise DocumentPortalException("Invalid file type. Only PDFs are allowed.", "File extension is not .pdf",sys)
 
             save_path = os.path.join(self.session_path, filename)
             
@@ -66,7 +67,9 @@ class DocumentHandler():
          try:
              text_chunks = []
              with fitz.open(pdf_path) as doc:
-                 for page_num, page in enumerate(doc, start=1):
+                 for page_num, page in enumerate(doc, start=1): # Start page numbering from 1 # type: ignore
+                     # Ensure the page is valid
+                     # Extract text from each page
                      text_chunks.append(f"\n--- Page {page_num} ---\n{page.get_text()}")
              text = "\n".join(text_chunks)
 

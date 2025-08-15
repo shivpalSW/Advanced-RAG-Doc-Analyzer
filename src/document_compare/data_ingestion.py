@@ -10,12 +10,12 @@ class DocumentIngestion:
     # This class uses LangChain to compare documents and extract differences.
     # It also uses PyMuPDF to extract metadata from PDF documents.
     """
-    def __init__(self,base_dir):
+    def __init__(self,base_dir:str="data\\document_compare"):
         # Initialize the DocumentIngestion class with a base directory.
         self.log = CustomLogger().get_logger(__name__)
         self.base_dir = Path(base_dir)
         self.base_dir.mkdir(parents=True, exist_ok=True) 
-
+ 
     def delete_existing_files(self):
         """
         Deletes existing files at the specified paths.
@@ -76,3 +76,26 @@ class DocumentIngestion:
         except Exception as e:
             self.log.error(f"Error reading PDF: {e}")
             raise DocumentPortalException("An error occurred while reading the PDF.", sys) 
+        
+    def combine_documents(self)-> str:
+        """
+        Combines the text of two documents into a single string.
+        """
+        try:
+            content_dict = {}
+            doc_parts = []
+
+            for filename in sorted(self.base_dir.iterdir()):
+                if filename.is_file() and filename.suffix == ".pdf":
+                    content_dict[filename.name] = self.read_pdf(filename)
+
+            for filename, content in content_dict.items():
+                doc_parts.append(f"Document: {filename}\n{content}")
+
+            combined_text = "\n\n".join(doc_parts)
+            self.log.info("Documents combined", count=len(doc_parts))
+            return combined_text
+
+        except Exception as e:
+            self.log.error(f"Error combining documents: {e}")
+            raise DocumentPortalException("An error occurred while combining documents.", sys)
